@@ -26,8 +26,8 @@ var $destinatario = 'raylanderfl@gmail.com';
 var mailOptions = {
     from: $usuario,
     to: $destinatario,
-    subject: 'Enviando um email pelo Node.js',
-    text: 'Muito fácil enviar um email pelo node, tente você também!'
+    subject: 'My Universe lol',
+    text: 'Parabéns! Seu site acaba de atingir 10 acessos.'
 };
 
 
@@ -35,18 +35,17 @@ var mailOptions = {
 process.env.SECRET_KEY = 'secret'
 
 user.post('/register', (req, res) => {
+
     const today = new Date()
     const userData = {
         username: req.body.username,
         email: req.body.email,
         password: req.body.password,
-        create_time: today,
-        name: req.body.name
+        name: req.body.name,
+        count: 1
     }
 
-    const worldData = {
-        id_user: req.body.id_user
-    }
+
 
     User.findOne({
             where: {
@@ -54,11 +53,15 @@ user.post('/register', (req, res) => {
             }
         })
         .then(user => {
-            if (!user) {
-                bcrypt.hash(req.bodzy.password, 10, (err, hash) => {
+
+            if (user == null) {
+                bcrypt.hash(req.body.password, 10, (err, hash) => {
                     userData.password = hash
                     User.create(userData)
                         .then(user => {
+                            const worldData = {
+                                id_user: user.dataValues.id
+                            }
                             World.create(worldData);
                             res.json({ status: user.email + ' registered' })
                         })
@@ -138,7 +141,8 @@ user.post('/getUser', (req, res) => {
         .then(user => {
             if (user) {
                 res.json(user.dataValues)
-                if (user.dataValues.count > 10) {
+                if (user.dataValues.count > 100) {
+                    console.log("PASSOU DE 10")
                     mailOptions.to = user.dataValues.email;
                     transporter.sendMail(mailOptions, function(error, info) {
                         if (error) {

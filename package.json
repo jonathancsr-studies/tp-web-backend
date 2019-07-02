@@ -2,7 +2,7 @@
   "name": "myuniverselol",
   "version": "0.2.0",
   "private": true,
-  "homepage": "https://jonathancsr.github.io/myuniverselol/",
+  "homepage": "https://myuniverselol.herokuapp.com/",
   "dependencies": {
     "bcrypt": "^3.0.6",
     "bcrypt-nodejs": "0.0.3",
@@ -15,13 +15,16 @@
     "node-pre-gyp": "^0.13.0",
     "nodemailer": "^6.2.1",
     "nodemon": "1.19.1",
-    "sequelize": "^5.8.9",
+    "sequelize": "^6.0.0",
     "surge": "0.21.3"
   },
   "scripts": {
-    "dev": "nodemon server.js"
+    "start": "npm i && nodemon server.js"
   },
   "devDependencies": {
     "sequelize-cli": "^5.5.0"
+  },
+  "engines": {
+    "node": "12.x"
   }
 }
